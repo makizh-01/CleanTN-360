@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CleanTN 360 – Master System Report (Phases 1 to 6)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Manrope:wght@600;700;800&display=swap');
+
+    :root {
+      --primary: #087a3c;
+      --primary-dark: #064e2b;
+      --accent: #16a34a;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2ece5;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 45px 55px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    /* Print action bar */
+    .action-bar {
+      position: sticky;
+      top: 15px;
+      z-index: 100;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #16a34a, #087a3c);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(8, 122, 60, 0.25);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(8, 122, 60, 0.35);
+    }
+
+    /* Header & Branding */
+    .header {
+      border-bottom: 2px solid #e2ece5;
+      padding-bottom: 25px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: #ffffff;
+      padding: 4px;
+      box-shadow: 0 4px 16px rgba(8, 122, 60, 0.15);
+      border: 2px solid #86efac;
+    }
+
+    .brand-title h1 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title p {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .header-badge {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* Document Sections */
+    h2 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin: 32px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid #dcfce7;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h3 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 20px 0 8px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #334155;
+      font-size: 14px;
+    }
+
+    /* Grid & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 16px 0 24px;
+    }
+
+    .card {
+      background: #fdfefe;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      transition: all 0.2s;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 800;
+      background: #f1f5f9;
+      color: #475569;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+
+    .card ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 13px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: #f0fdf4;
+      color: #166534;
+      text-align: left;
+      padding: 12px 14px;
+      font-weight: 800;
+      font-family: 'Manrope', sans-serif;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 11px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) td {
+      background: #fafcfb;
+    }
+
+    /* Metric Pills */
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .pill-green { background: #dcfce7; color: #15803d; }
+    .pill-blue { background: #e0f2fe; color: #0369a1; }
+    .pill-amber { background: #fef3c7; color: #b45309; }
+    .pill-purple { background: #f3e8ff; color: #7e22ce; }
+
+    /* Footer */
+    .report-footer {
+      margin-top: 40px;
+      border-top: 1.5px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Print CSS overrides */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .action-bar {
+        display: none !important;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      .card, table {
+        page-break-inside: avoid;
+      }
+      @page {
+        size: A4;
+        margin: 15mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Print Trigger -->
+  <div class="action-bar">
+    <button class="btn" onclick="window.print()">
+      🖨️ Download / Print as PDF
+    </button>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand-group">
+        <img src="CleanTN_360_Phase1_Frontend/public/cleantn-logo.png" alt="CleanTN 360 Emblem" class="brand-logo" onerror="this.src='/cleantn-logo.png'">
+        <div class="brand-title">
+          <h1>CleanTN 360 – Master System Report</h1>
+          <p>தூய தமிழ்நாடு 360 · முழுமையான கணினி வடிவமைப்பு அறிக்கை</p>
+        </div>
+      </div>
+      <div>
+        <span class="header-badge">Phases 1 to 6 Active · 38 Districts Ready</span>
+      </div>
+    </header>
+
+    <!-- Section 1 -->
+    <h2>1. Executive Summary & State Vision</h2>
+    <p>
+      <b>CleanTN 360 (தூய தமிழ்நாடு 360)</b> is a unified smart waste management, AI circular economy, and Green Money digital wallet ecosystem custom-architected for the <b>Government and Citizens of Tamil Nadu</b>. Designed to scale seamlessly across all <b>38 Revenue Districts</b>, it transforms municipal waste from an urban liability into traceable civic wealth.
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Civic Participation & Rewards</span>
+          <span class="card-tag">Citizen Focus</span>
+        </div>
+        <p>Citizens segregate household and commercial dry waste, deposit it at certified neighborhood hubs, and receive instant, calibrated Green Money points redeemable via UPI or utility bills.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Physical Verification Queue</span>
+          <span class="card-tag">Anti-Fraud Safeguard</span>
+        </div>
+        <p>Trained municipal collectors physically weigh waste on calibrated digital scales, record tare weights, and capture timestamped scale photographs before ledger approval.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">38-District GIS Mapping</span>
+          <span class="card-tag">Statewide Scale</span>
+        </div>
+        <p>Comprehensive vector GIS map covering all 38 districts with live collection hub densities, segregation indices, and landfill diversion KPIs adhering to CPCB standards.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">AI & IoT Infrastructure</span>
+          <span class="card-tag">Phase 5 & 6 Tech</span>
+        </div>
+        <p>Includes AI visual segregation guidance, predictive seasonal waste forecasting, automated collector route optimization, live GPS fleet tracking, and smart-bin ultrasonic sensors.</p>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <h2>2. User Roles & RBAC Matrix</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Role (பங்கு)</th>
+          <th>Portal Route</th>
+          <th>Authorized Scope & Capabilities</th>
+          <th>Security Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Citizen (பொதுமக்கள்)</b></td>
+          <td><code>/app/*</code></td>
+          <td>Deposit registration, QR generation, Green Money wallet, AI Assistant, UPI redemptions, community clean-up challenges.</td>
+          <td><span class="pill pill-green">Civic Level</span></td>
+        </tr>
+        <tr>
+          <td><b>Sanitation Collector (தூய்மைப் பணியாளர்)</b></td>
+          <td><code>/collector/*</code></td>
+          <td>QR scale verification, tare weight calculation, scale photo upload, batch approval/rejection, smart route optimization, GPS fleet navigation.</td>
+          <td><span class="pill pill-blue">Field Level</span></td>
+        </tr>
+        <tr>
+          <td><b>District Administrator (மாவட்ட நிர்வாகி)</b></td>
+          <td><code>/admin/*</code></td>
+          <td>Ledger approvals, hub management, staff permissions, AI fraud anomaly queue, IoT fleet telemetry, authorized recyclers, grievance resolution.</td>
+          <td><span class="pill pill-amber">District Level</span></td>
+        </tr>
+        <tr>
+          <td><b>State Admin (மாநில தலைமை நிர்வாகி)</b></td>
+          <td><code>/state-admin/*</code></td>
+          <td>Statewide 38-district command center, District Green Score rankings, CPCB compliance reporting, phased rollout roadmaps, inter-district resource allocations.</td>
+          <td><span class="pill pill-purple">State Secretariat</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section 3 -->
+    <h2>3. Comprehensive Phase-by-Phase Module Catalog</h2>
+
+    <h3>Phase 1: Core Civic React Frontend & Hub Directory</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Public Landing Portal</div>
+        <ul>
+          <li>Interactive glassmorphic Tamil Nadu theme with Thiruvalluvar & Brihadeeswara heritage graphics.</li>
+          <li>Real-time environmental impact counters (Waste Diverted, Citizens, Green Money).</li>
+          <li>Bilingual English & தமிழ் toggle in top navigation.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Citizen Deposit Wizard</div>
+        <ul>
+          <li>Multi-step wizard selecting hub, category (Plastic, Paper, Metal, Glass, E-Waste, Organic), and weight.</li>
+          <li>Generates unique tracking code (e.g. <code>DEP-CBE-2026-001</code>) and on-screen verification QR.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Phase 2: Supabase Authentication, RBAC & Verification Queue</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Secure Auth & Registration Fallback</div>
+        <ul>
+          <li>Supabase PostgreSQL authentication with JWT token lifecycle.</li>
+          <li>Resilient fallback engine handling email confirmation rate limits without blocking citizens.</li>
+          <li>Interactive password show/hide eye toggle button.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Field Collector Scale Desk</div>
+        <ul>
+          <li>Barcode/QR scanner identifying citizen deposit manifest.</li>
+          <li>Dual-entry gross and tare weight measurement with certified scale photo upload.</li>
+          <li>Rejection reason logging for contaminated or unsorted materials.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Phase 3: Green Money Digital Wallet & Rewarding Engine</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Waste Category (கழிவு வகை)</th>
+          <th>State Reward Rate (விலை)</th>
+          <th>Green Points per KG</th>
+          <th>Primary Processing Facility</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>Plastic (பிளாஸ்டிக்)</b></td><td>₹12.00 / kg</td><td>120 Points</td><td>Mechanical Pelletizing & Pyrolysis Units</td></tr>
+        <tr><td><b>Paper & Cardboard (காகிதம்)</b></td><td>₹8.00 / kg</td><td>80 Points</td><td>Pulp & Kraft Board Mills</td></tr>
+        <tr><td><b>Metal & Scrap (உலோகம்)</b></td><td>₹25.00 / kg</td><td>250 Points</td><td>Secondary Steel & Aluminum Smelters</td></tr>
+        <tr><td><b>Glass Bottles (கண்ணாடி)</b></td><td>₹4.00 / kg</td><td>40 Points</td><td>Cullet Beneficiation & Furnace Plants</td></tr>
+        <tr><td><b>E-Waste (மின்னணுக் கழிவு)</b></td><td>₹45.00 / kg</td><td>450 Points</td><td>CPCB Certified Dismantling & Refining Units</td></tr>
+        <tr><td><b>Compostable Organic (மக்கும் கழிவு)</b></td><td>₹2.00 / kg</td><td>20 Points</td><td>Municipal Biomethanation & Aerobic Compost</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Phase 4: Statewide 38-District GIS Intelligence & Public Impact Portal</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Interactive SVG Tamil Nadu GIS Map</div>
+        <ul>
+          <li>All 38 districts rendered with geographic coordinates and live operational statuses.</li>
+          <li>Filter hubs by active online, maintenance/calibration, and accepted categories.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Public Impact Portal</div>
+        <ul>
+          <li>Open data portal calculating greenhouse emissions avoided (kg CO2e) and landfill cubic meters saved.</li>
+          <li>Downloadable CPCB-standard JSON compliance audit reports.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Phase 5: AI Waste Intelligence, Predictive ML & Logistics</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">AI Waste Segregation Assistant</div>
+        <ul>
+          <li>Interactive guide identifying material categories into dry, wet, domestic hazardous, and e-waste.</li>
+          <li>Conversational AI answering district waste bylaws and hub timings.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Predictive Analytics & Smart Routes</div>
+        <ul>
+          <li>Time-series forecasting predicting daily waste surges based on seasonal festivals.</li>
+          <li>Nearest-neighbor TSP route optimizer minimizing sanitation truck fuel consumption.</li>
+          <li>Automated ML fraud queue flagging weight spoofing and geofence mismatches.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Phase 6: Real-World IoT Fleet, Government Connectivity & Statewide Rollout</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Module 6.1 – Production Deployment</div>
+        <p>CI/CD automated GitHub Actions workflow, isolated staging/production environments, and system health checks.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Module 6.2 – Real-World IoT Fleet</div>
+        <p>Ultrasonic smart-bin fill-level sensors, digital scale telemetry, and temperature probes for fire hazard mitigation.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Module 6.3 – Live Vehicle GPS Tracking</div>
+        <p>Municipal compactor trucks and e-rickshaw tracking with route progression, geofencing, and operator privacy guards.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Module 6.4 – Government API Integration</div>
+        <p>Municipal corporation ERP connectors, Swachh Bharat sync, and pilot CSV data import/export engine.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Module 6.5 – Authorized Recyclers</div>
+        <p>B2B industrial marketplace connecting municipal hubs with licensed recyclers via digital chain-of-custody manifests.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Module 6.6 – Real Green Money Payouts</div>
+        <p>Banking gateway supporting NPCI UPI 2.0, DBT account transfers, and municipal property tax utility offsets.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Module 6.7 – Awareness Network</div>
+        <p>Community ward cleanups (Marina, Cauvery rivers), volunteer gamification, and eco-badges.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Module 6.8 & 6.9 – Security & Rollout</div>
+        <p>DPDP Act 2023 compliance, audit hashing, and 3-stage rollout roadmap across all 38 Tamil Nadu districts.</p>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <h2>4. Technical Specifications & File Reference</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Deliverable / Artifact</th>
+          <th>File Location</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Master Markdown Report</b></td>
+          <td><code>CleanTN_360_Master_Comprehensive_Report.md</code></td>
+          <td>Full markdown documentation for offline reading, archiving, and code repository commits.</td>
+        </tr>
+        <tr>
+          <td><b>Printable HTML & PDF Report</b></td>
+          <td><code>CleanTN_360_Master_Report_Printable.html</code></td>
+          <td>Standalone executive document with one-click print/PDF button (A4 optimized).</td>
+        </tr>
+        <tr>
+          <td><b>Master Database Script</b></td>
+          <td><code>CleanTN_360_Phase1_Frontend/supabase/CLEANTN_360_ALL_PHASES_1_TO_6_MASTER.sql</code></td>
+          <td>Single consolidated SQL script covering all 6 phases: tables, views, RLS policies, triggers.</td>
+        </tr>
+        <tr>
+          <td><b>Bilingual Master Dictionary</b></td>
+          <td><code>CleanTN_360_Phase1_Frontend/src/lib/translations.js</code></td>
+          <td>Complete English and தமிழ் civic localization master dictionary.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer class="report-footer">
+      <div>
+        <b>CleanTN 360</b> · Government of Tamil Nadu Smart Waste & Green Money Ecosystem
+      </div>
+      <div>
+        <span>Generated for Makizh N · Technical & Operations Secretariat</span>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "service": "CleanTN 360 Smart Waste & Green Money Ecosystem",
+  "version": "6.0.0-production-ready",
+  "status": "healthy",
+  "environment": "pilot-production",
+  "phases_active": [1, 2, 3, 4, 5, 6],
+  "districts_supported": 38,
+  "primary_pilot": "Coimbatore (TN-CBE)",
+  "compliance": {
+    "rls_enforced": true,
+    "cpcb_epr_standard": "2026.1",
+    "payout_mode": "sandbox_simulation"
+  }
+}

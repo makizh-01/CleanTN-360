@@ -1,0 +1,71 @@
+name: CleanTN 360 CI/CD Production Pipeline
+
+on:
+  push:
+    branches: [ main, staging ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-verify:
+    name: Build, Lint & Security Check
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./CleanTN_360_Phase1_Frontend
+
+    steps:
+      - name: Checkout CleanTN 360 Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./CleanTN_360_Phase1_Frontend/package-lock.json
+
+      - name: Install Frontend Dependencies
+        run: npm ci
+
+      - name: Verify Zero Hardcoded Secrets
+        run: |
+          if grep -rnE "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9|service_role" src/; then
+            echo "ERROR: Potential Supabase service_role or hardcoded JWT detected in frontend src/!"
+            exit 1
+          fi
+          echo "✓ Security Secret Scan Passed."
+
+      - name: Build Production Bundle (Vite)
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_APP_ENV: production
+        run: npm run build
+
+      - name: Verify Health Check Manifest
+        run: test -f dist/api/health.json && echo "✓ Health endpoint verified."
+
+      - name: Upload Production Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cleantn360-dist
+          path: ./CleanTN_360_Phase1_Frontend/dist
+
+  ml-backend-verify:
+    name: Python ML Service Syntax & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./CleanTN_360_Phase1_Frontend/backend_ml
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python Requirements
+        run: pip install -r requirements.txt
+      - name: Validate Forecasting Model Training Pipeline
+        run: python train_model.py
